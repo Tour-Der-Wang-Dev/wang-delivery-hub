@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../utils/languageUtils';
 import { useNavigate } from 'react-router-dom';
-import { Search, MapPin, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { restaurants } from '../data/mockData';
 import RestaurantCard from '../components/RestaurantCard';
+import { Icon } from '@/components/ui/icon';
 
 const HomePage: React.FC = () => {
   const { t } = useLanguage();
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
       <div className="bg-gradient-to-r from-wang-cream to-white py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-wang-brown mb-4">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-wang-brown mb-4 font-kanit">
               {t('home.title')}
             </h1>
             <p className="text-lg md:text-xl text-gray-700 mb-8">
@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
             <form onSubmit={handleSearch} className="relative">
               <div className="flex">
                 <div className="relative flex-grow">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <Icon name="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <Input
                     type="text"
                     placeholder={t('home.search')}
@@ -107,7 +107,7 @@ const HomePage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="card-wang p-4 flex flex-col items-center text-center">
               <div className="w-24 h-24 rounded-full bg-wang-cream flex items-center justify-center mb-4">
-                <MapPin className="h-12 w-12 text-wang-orange" />
+                <Icon name="MapPin" className="h-12 w-12 text-wang-orange" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Local Delivery</h3>
               <p className="text-gray-600">Fast delivery from your favorite local restaurants straight to your door</p>
@@ -115,19 +115,7 @@ const HomePage: React.FC = () => {
             
             <div className="card-wang p-4 flex flex-col items-center text-center">
               <div className="w-24 h-24 rounded-full bg-wang-cream flex items-center justify-center mb-4">
-                <svg 
-                  className="h-12 w-12 text-wang-orange" 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="M12 6v6l4 2"></path>
-                </svg>
+                <Icon name="Clock" className="h-12 w-12 text-wang-orange" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Real-time Tracking</h3>
               <p className="text-gray-600">Know exactly when your food will arrive with our real-time order tracking</p>
@@ -135,7 +123,7 @@ const HomePage: React.FC = () => {
             
             <div className="card-wang p-4 flex flex-col items-center text-center">
               <div className="w-24 h-24 rounded-full bg-wang-cream flex items-center justify-center mb-4">
-                <Clock className="h-12 w-12 text-wang-orange" />
+                <Icon name="Clock" className="h-12 w-12 text-wang-orange" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Scheduled Orders</h3>
               <p className="text-gray-600">Plan ahead and schedule your orders for the perfect timing</p>
