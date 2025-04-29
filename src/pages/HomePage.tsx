@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../utils/languageUtils';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -19,7 +19,10 @@ const HomePage: React.FC = () => {
     navigate(`/restaurants?search=${searchTerm}`);
   };
 
-  const featuredRestaurants = restaurants.filter(r => r.isOpen).slice(0, 3);
+  // Memoize filtered restaurants to prevent unnecessary recalculations
+  const featuredRestaurants = useMemo(() => 
+    restaurants.filter(r => r.isOpen).slice(0, 3)
+  , []);
 
   return (
     <div className="flex flex-col">
@@ -61,6 +64,7 @@ const HomePage: React.FC = () => {
                   className={deliveryType === 'delivery' ? 'bg-wang-orange hover:bg-wang-brown' : ''}
                   onClick={() => setDeliveryType('delivery')}
                 >
+                  <Icon name="Truck" className="mr-2 h-4 w-4" />
                   {t('home.delivery')}
                 </Button>
                 <Button
@@ -69,6 +73,7 @@ const HomePage: React.FC = () => {
                   className={deliveryType === 'pickup' ? 'bg-wang-orange hover:bg-wang-brown' : ''}
                   onClick={() => setDeliveryType('pickup')}
                 >
+                  <Icon name="Store" className="mr-2 h-4 w-4" />
                   {t('home.pickup')}
                 </Button>
               </div>
@@ -123,7 +128,7 @@ const HomePage: React.FC = () => {
             
             <div className="card-wang p-4 flex flex-col items-center text-center">
               <div className="w-24 h-24 rounded-full bg-wang-cream flex items-center justify-center mb-4">
-                <Icon name="Clock" className="h-12 w-12 text-wang-orange" />
+                <Icon name="Calendar" className="h-12 w-12 text-wang-orange" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Scheduled Orders</h3>
               <p className="text-gray-600">Plan ahead and schedule your orders for the perfect timing</p>

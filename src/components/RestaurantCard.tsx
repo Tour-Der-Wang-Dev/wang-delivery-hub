@@ -4,6 +4,8 @@ import { Restaurant } from '../types';
 import { useLanguage } from '../utils/languageUtils';
 import { useNavigate } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
+import { OptimizedImage } from '@/components/ui/optimized-image';
+import { Icon } from '@/components/ui/icon';
 
 interface RestaurantCardProps {
   restaurant: Restaurant;
@@ -23,10 +25,11 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant }) => {
       onClick={handleClick}
     >
       <div className="relative h-40 overflow-hidden">
-        <img 
+        <OptimizedImage 
           src={restaurant.image} 
           alt={restaurant.name} 
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+          className="w-full h-full"
+          loadingStrategy={restaurant.featured ? 'eager' : 'lazy'}
         />
         {!restaurant.isOpen && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
@@ -41,7 +44,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant }) => {
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-bold text-lg group-hover:text-wang-orange transition-colors">{restaurant.name}</h3>
           <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-md">
-            <span className="text-yellow-600 text-sm">★</span>
+            <Icon name="Star" className="w-4 h-4 text-yellow-600" />
             <span className="text-gray-700 text-sm ml-1">{restaurant.rating}</span>
           </div>
         </div>
@@ -59,12 +62,16 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant }) => {
         <div className="flex items-center justify-between text-sm text-gray-500 mt-2">
           <div>
             {restaurant.deliveryFee > 0 ? (
-              <span>฿{restaurant.deliveryFee} {t('cart.deliveryFee')}</span>
+              <div className="flex items-center">
+                <Icon name="Truck" className="w-4 h-4 mr-1" />
+                <span>฿{restaurant.deliveryFee} {t('cart.deliveryFee')}</span>
+              </div>
             ) : (
               <span className="text-green-600">Free Delivery</span>
             )}
           </div>
-          <div>
+          <div className="flex items-center">
+            <Icon name="Clock" className="w-4 h-4 mr-1" />
             <span>{restaurant.deliveryTime} {t('restaurant.min')}</span>
           </div>
         </div>
@@ -73,4 +80,4 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant }) => {
   );
 };
 
-export default RestaurantCard;
+export default React.memo(RestaurantCard);
