@@ -1,0 +1,275 @@
+
+import { Restaurant, MenuItem, Order } from '../types';
+
+export const restaurants: Restaurant[] = [
+  {
+    id: '1',
+    name: 'Som Tam Cafe',
+    description: 'Authentic Thai papaya salad and Northeastern Thai cuisine',
+    image: '/placeholder.svg',
+    rating: 4.7,
+    deliveryTime: '20-30',
+    deliveryFee: 40,
+    minOrder: 100,
+    isOpen: true,
+    categories: ['Thai', 'Salad', 'Spicy'],
+    address: '123 Wang Sam Mo Road',
+    coordinates: {
+      lat: 16.7558,
+      lng: 103.2766,
+    },
+    selfDelivery: true,
+  },
+  {
+    id: '2',
+    name: 'Bangkok Street Food',
+    description: 'Traditional street food favorites from Bangkok',
+    image: '/placeholder.svg',
+    rating: 4.5,
+    deliveryTime: '25-40',
+    deliveryFee: 35,
+    minOrder: 150,
+    isOpen: true,
+    categories: ['Thai', 'Street Food'],
+    address: '456 Srirung Street',
+    coordinates: {
+      lat: 16.7542,
+      lng: 103.2798,
+    },
+    selfDelivery: false,
+  },
+  {
+    id: '3',
+    name: 'Pad Thai Paradise',
+    description: 'Specializing in the perfect Pad Thai and noodle dishes',
+    image: '/placeholder.svg',
+    rating: 4.6,
+    deliveryTime: '15-30',
+    deliveryFee: 30,
+    minOrder: 120,
+    isOpen: true,
+    categories: ['Thai', 'Noodles'],
+    address: '789 Noodle Lane',
+    coordinates: {
+      lat: 16.7599,
+      lng: 103.2722,
+    },
+    selfDelivery: true,
+  },
+  {
+    id: '4',
+    name: 'Mango Sticky Rice',
+    description: 'Sweet treats and Thai desserts',
+    image: '/placeholder.svg',
+    rating: 4.8,
+    deliveryTime: '15-25',
+    deliveryFee: 25,
+    minOrder: 80,
+    isOpen: true,
+    categories: ['Dessert', 'Thai'],
+    address: '101 Sweet Street',
+    coordinates: {
+      lat: 16.7511,
+      lng: 103.2756,
+    },
+    selfDelivery: false,
+  },
+  {
+    id: '5',
+    name: 'Green Curry House',
+    description: 'Authentic Thai curries and rice dishes',
+    image: '/placeholder.svg',
+    rating: 4.4,
+    deliveryTime: '25-40',
+    deliveryFee: 45,
+    minOrder: 150,
+    isOpen: false, // Currently closed
+    categories: ['Thai', 'Curry', 'Rice'],
+    address: '222 Curry Road',
+    coordinates: {
+      lat: 16.7533,
+      lng: 103.2711,
+    },
+    selfDelivery: true,
+  },
+];
+
+export const menuItems: Record<string, MenuItem[]> = {
+  '1': [ // Som Tam Cafe
+    {
+      id: '101',
+      restaurantId: '1',
+      name: 'Papaya Salad (Som Tam)',
+      description: 'Traditional spicy green papaya salad with lime, chili, and peanuts',
+      price: 80,
+      category: 'Salads',
+      popular: true,
+      options: [
+        {
+          name: 'Spice Level',
+          choices: [
+            { name: 'Mild' },
+            { name: 'Medium' },
+            { name: 'Spicy' },
+            { name: 'Thai Spicy' },
+          ],
+          required: true,
+          multiSelect: false,
+        },
+        {
+          name: 'Add-ons',
+          choices: [
+            { name: 'Salted Egg', price: 20 },
+            { name: 'Fermented Fish Sauce', price: 15 },
+            { name: 'Grilled Chicken', price: 40 },
+          ],
+          required: false,
+          multiSelect: true,
+        },
+      ],
+    },
+    {
+      id: '102',
+      restaurantId: '1',
+      name: 'Grilled Chicken (Gai Yang)',
+      description: 'Marinated grilled chicken with special herb blend',
+      price: 120,
+      category: 'Main Dishes',
+      popular: true,
+    },
+    {
+      id: '103',
+      restaurantId: '1',
+      name: 'Sticky Rice',
+      description: 'Traditional Thai sticky rice',
+      price: 25,
+      category: 'Sides',
+    },
+  ],
+  '2': [ // Bangkok Street Food
+    {
+      id: '201',
+      restaurantId: '2',
+      name: 'Pad Krapow (Basil Stir-Fry)',
+      description: 'Spicy stir-fried meat with holy basil and rice',
+      price: 90,
+      category: 'Main Dishes',
+      popular: true,
+      options: [
+        {
+          name: 'Protein',
+          choices: [
+            { name: 'Chicken' },
+            { name: 'Pork' },
+            { name: 'Beef', price: 15 },
+          ],
+          required: true,
+          multiSelect: false,
+        },
+        {
+          name: 'Egg',
+          choices: [
+            { name: 'No Egg' },
+            { name: 'Fried Egg', price: 10 },
+          ],
+          required: true,
+          multiSelect: false,
+        },
+      ],
+    },
+    {
+      id: '202',
+      restaurantId: '2',
+      name: 'Moo Ping (Grilled Pork Skewers)',
+      description: 'Marinated grilled pork skewers',
+      price: 60,
+      category: 'Appetizers',
+      popular: true,
+    },
+  ],
+};
+
+export const pastOrders: Order[] = [
+  {
+    id: 'ord-001',
+    userId: 'user1',
+    restaurantId: '1',
+    items: [
+      {
+        item: menuItems['1'][0],
+        quantity: 1,
+        selectedOptions: {
+          'Spice Level': 'Medium',
+          'Add-ons': ['Salted Egg'],
+        },
+      },
+      {
+        item: menuItems['1'][2],
+        quantity: 2,
+      },
+    ],
+    status: 'delivered',
+    orderType: 'delivery',
+    createdAt: '2023-04-20T10:30:00Z',
+    updatedAt: '2023-04-20T11:15:00Z',
+    total: 150,
+    subtotal: 130,
+    deliveryFee: 20,
+    paymentMethod: 'promptpay',
+    paymentStatus: 'completed',
+  },
+  {
+    id: 'ord-002',
+    userId: 'user1',
+    restaurantId: '2',
+    items: [
+      {
+        item: menuItems['2'][0],
+        quantity: 2,
+        selectedOptions: {
+          'Protein': 'Chicken',
+          'Egg': 'Fried Egg',
+        },
+      },
+    ],
+    status: 'delivered',
+    orderType: 'delivery',
+    createdAt: '2023-04-18T18:45:00Z',
+    updatedAt: '2023-04-18T19:30:00Z',
+    total: 225,
+    subtotal: 190,
+    deliveryFee: 35,
+    paymentMethod: 'cash',
+    paymentStatus: 'completed',
+  },
+];
+
+export const activeOrder: Order | null = {
+  id: 'ord-003',
+  userId: 'user1',
+  restaurantId: '3',
+  items: [
+    {
+      item: {
+        id: '301',
+        restaurantId: '3',
+        name: 'Pad Thai',
+        description: 'Classic Thai stir-fried noodles with egg, tofu, bean sprouts, and peanuts',
+        price: 95,
+        category: 'Noodles',
+        popular: true,
+      },
+      quantity: 2,
+    },
+  ],
+  status: 'delivering',
+  orderType: 'delivery',
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  deliveryTime: '15-20 min',
+  total: 220,
+  subtotal: 190,
+  deliveryFee: 30,
+  paymentMethod: 'promptpay',
+  paymentStatus: 'completed',
+};
